@@ -5,17 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-            
+      
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h3>하노이의 탑</h3>
     <input type="button" value="초기화" onclick="onit()">
     <div class = "parent">
-        <div class="box1">first</div>
-        <div class="box2">second</div>
-        <div class="box3">third</div>
+        <div id="redbox" onclick="click1()">
+            <div id="colorbox">first</div>
+        </div>
+        <div id="greeenbox" onclick="click2()">second</div>
+        <div id="bluebox" onclick="click3()">third</div>
     </div>
-</body>
-<script src="Hanoi.js"></script>
+    <script src="Hanoi.js"></script>
+</body>   
 </html>
