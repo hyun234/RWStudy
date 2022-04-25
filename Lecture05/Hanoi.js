@@ -83,7 +83,7 @@ function click3(){
 }
 
 function draw(getstr_p,setstr_p,garray,sarray){
-    if(typeof garray !== 'undefined' && garray.length >0){
+    if(garray !== null && garray.length >0){
         if(sarray.length ==0 || sarray[sarray.length-1].length > garray[garray.length-1].length){
             var img = garray.pop();
             sarray.push(img);
