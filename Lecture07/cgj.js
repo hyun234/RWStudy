@@ -18,7 +18,7 @@ class Player{
         c.fill()
     }
 }
-//발사체 클래스 생성- x,y위치, 반지름, 색, 발사체 가는 방향? // 함수:그리기
+//발사체 클래스 생성- x,y위치, 반지름, 색, 발사체 가는 방향? // 함수:그리기 s
 class Projectile{
     constructor(x,y,radius,color,velocity){
         this.x = x
