@@ -1,8 +1,6 @@
 //const canvas = document.querySelector('canvas');
 const canvas = document.getElementById('main_canvas');
 var context = canvas.getContext('2d');
-canvas.height = innerHeight*(3/4);
-canvas.width = innerWidth*(3/4);
 //classes
 class player{
     constructor(x,y,radius,color){
@@ -11,7 +9,6 @@ class player{
         this.radius = radius;
         this.color = color;
     }
-
     draw(){
         context.beginPath();
         
@@ -145,7 +142,7 @@ class GameManager{
 
 var gm = new GameManager();
 const animation = setInterval(rend,1000/gm.fps);
-const animation2 = setInterval(rend2,50000/gm.fps);
+const animation2 = setInterval(rend2,70000/gm.fps);
 
 function rend(){
     gm.Render();
