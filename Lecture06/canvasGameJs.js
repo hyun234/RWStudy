@@ -1,7 +1,8 @@
 //const canvas = document.querySelector('canvas');
 const canvas = document.getElementById('main_canvas');
 var context = canvas.getContext('2d');
-
+canvas.height = innerHeight*(3/4);
+canvas.width = innerWidth*(3/4);
 //classes
 class player{
     constructor(x,y,radius,color){
@@ -77,7 +78,7 @@ class GameManager{
         this.Player = new player(canvas.width/2, canvas.height/2, 20, 'skyblue');
     }  
     Render(){
-        context.fillStyle = "rgb(0,0,0,0.08)"
+        context.fillStyle = "rgb(0,0,0,0.2)"
         context.fillRect(0, 0, canvas.width, canvas.height);
         this.Player.draw();
 
@@ -85,7 +86,7 @@ class GameManager{
             bullet.update();
             bullet.draw();
         })
-        this.EnemyArr.forEach((enemy) =>{
+        this.EnemyArr.forEach((enemy,enemyIndex) =>{
             enemy.update();
             enemy.draw();
             const dist = Math.hypot(this.Player.pos_x - enemy.position_x, this.Player.pos_y - enemy.position_y);
@@ -93,29 +94,34 @@ class GameManager{
                 clearInterval(animation);
                 clearInterval(animation2);
             }
+            this.bulletArr.forEach((bullet,bulletIndex)=>{
+                const dist2 = Math.hypot(bullet.position_x - enemy.position_x,bullet.position_y - enemy.position_y);
+                if(dist2 - bullet.radius - enemy.radius < 0.5){
+
+                    if(enemy.radius -20 > 10){
+                        enemy.radius -=10;
+                        setTimeout(()=>{
+                            this.bulletArr.splice(bulletIndex,1);
+                        },0)
+                    }
+                    else
+                    {
+                        setTimeout(() => {
+                            this.bulletArr.splice(bulletIndex,1);
+                            this.EnemyArr.splice(enemyIndex,1);    
+                        }, 0);
+                        
+                    }
+                }
+            })
         })
-
-        // for (let bullet of this.bulletArr) {
-        //     bullet.update();
-        //     bullet.draw();
-        // }
-        // for (let enemy of this.EnemyArr) {
-        //     enemy.update();
-        //     enemy.draw();
-        //     const dist = Math.hypot(this.Player.pos_x - enemy.position_x, this.Player.pos_y - enemy.position_y);
-        //     if(dist - this.Player.radius - enemy.radius < 0.5){
-        //         clearInterval(animation);
-        //         clearInterval(animation2);
-        //     }
-        // } 
-
     }
     SpawnBullet(event) {
         let clickpos_x = event.clientX -context.canvas.offsetLeft;
         let clickpos_y = event.clientY -context.canvas.offsetTop;
         let des_x = clickpos_x - this.Player.pos_x;
         let des_y = clickpos_y - this.Player.pos_y;
-        this.bulletArr.push(new bullet(this.Player.pos_x,this.Player.pos_y,des_x,des_y,5,'green',5));
+        this.bulletArr.push(new bullet(this.Player.pos_x,this.Player.pos_y,des_x,des_y,5,'red',5));
     }
     SpawnEnemy(){
         let enemy_x;
@@ -139,7 +145,7 @@ class GameManager{
 
 var gm = new GameManager();
 const animation = setInterval(rend,1000/gm.fps);
-const animation2 = setInterval(rend2,100000/gm.fps);
+const animation2 = setInterval(rend2,50000/gm.fps);
 
 function rend(){
     gm.Render();
